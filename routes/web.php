@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', [
+        'greetings'=> 'Bine ati venit pe pagina de Home',
+    ]);
     
 });
 
@@ -16,9 +18,11 @@ Route::get('about', function() {
 });
 
 Route::get('contact', function() {
-    return view('contact');
+    return view('contact',[
+        'name' => 'Laravel',
+        'url' => 'https://laravel.com',]);
 });
 
 Route::get('jobs', function() {
-    return view('jobs');
+    return view('jobs', ['title'=> 'Laravel Jobs', 'jobs'=> [['jobname'=>'Developer','salary'=>'50k'], ['jobname'=>'Manager','salary'=>'90k'], ['jobname'=>'Designer','salary'=>'40k']]]);
 });
