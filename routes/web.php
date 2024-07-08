@@ -24,5 +24,13 @@ Route::get('contact', function() {
 });
 
 Route::get('jobs', function() {
-    return view('jobs', ['title'=> 'Laravel Jobs', 'jobs'=> [['jobname'=>'Developer','salary'=>'50k'], ['jobname'=>'Manager','salary'=>'90k'], ['jobname'=>'Designer','salary'=>'40k']]]);
+    return view('jobs', 
+    [
+    'pagetitle'=> 'Laravel Jobs', 
+    'jobs'=> [
+    ['title'=>'Developer','salary'=>'50k'], 
+    ['title'=>'Manager','salary'=>'90k'], 
+    ['title'=>'Designer','salary'=>'40k']
+    ]
+    ]);
 });
