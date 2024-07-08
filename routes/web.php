@@ -28,9 +28,26 @@ Route::get('jobs', function() {
     [
     'pagetitle'=> 'Laravel Jobs', 
     'jobs'=> [
-    ['title'=>'Developer','salary'=>'50k'], 
-    ['title'=>'Manager','salary'=>'90k'], 
-    ['title'=>'Designer','salary'=>'40k']
+    ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
+    ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
+    ['id'=>3,'title'=>'Designer','salary'=>'40k']
+    ]
+    ]);
+});
+
+Route::get('jobs/{id}', function($id) {
+
+    $jobs= [
+        ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
+        ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
+        ['id'=>3,'title'=>'Designer','salary'=>'40k']
+    ];
+    $job= $jobs[$id-1];
+    return view('job', 
+    [
+    'job'=> [
+    ['id'=>$job['id'], 'title'=>$job['title'], 'salary'=>$job['salary']], 
+   
     ]
     ]);
 });
