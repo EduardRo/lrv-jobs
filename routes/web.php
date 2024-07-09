@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Arr;
 
 Route::get('/', function () {
     return view('home', [
@@ -36,18 +37,29 @@ Route::get('jobs', function() {
 });
 
 Route::get('jobs/{id}', function($id) {
+   
 
     $jobs= [
         ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
         ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
         ['id'=>3,'title'=>'Designer','salary'=>'40k']
     ];
-    $job= $jobs[$id-1];
-    return view('job', 
-    [
+    //$job= $jobs[$id-1];
+    //return view('job', [$myjob]
+   /* [
     'job'=> [
     ['id'=>$job['id'], 'title'=>$job['title'], 'salary'=>$job['salary']], 
    
     ]
-    ]);
+    ] */
+    //);
+    $myjob = Arr::first($jobs, function ($job) use ($id) {
+        return $job['id'] == $id;
+    });
+    //trebuie sa folosesti use ($id) ca sa ai access la $id in functia Arr::first
+    // fn($job) => $job['id'] == $id alta varianta ca sa ai acess la variabila $id
+    if ($myjob) {
+        return view('job', ['myjob' => $myjob]);
+    }   else {return "Jobul nu exista";};
+    
 });
