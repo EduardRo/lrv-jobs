@@ -2,13 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
+use App\Models\Job;
 
 
-$jobs= [
-    ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
-    ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
-    ['id'=>3,'title'=>'Designer','salary'=>'40k']
-];
 
 Route::get('/', function () {
     return view('home', [
@@ -31,32 +27,20 @@ Route::get('contact', function() {
         'url' => 'https://laravel.com',]);
 });
 
-Route::get('jobs', function() use($jobs) {
+Route::get('jobs', function()  {
+    
     return view('jobs', 
     [
     'pagetitle'=> 'Laravel Jobs', 
-    'jobs'=> $jobs
+    'jobs'=> Job::alljobs()
     ]);
 });
 
-Route::get('jobs/{id}', function($id) use($jobs) {
-   
-
-    $jobs= $jobs;
-    /*[
-        ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
-        ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
-        ['id'=>3,'title'=>'Designer','salary'=>'40k']
-    ];*/
-    //$job= $jobs[$id-1];
-    //return view('job', [$myjob]
-   /* [
-    'job'=> [
-    ['id'=>$job['id'], 'title'=>$job['title'], 'salary'=>$job['salary']], 
-   
-    ]
-    ] */
-    //);
+Route::get('jobs/{id}', function($id)  {
+    
+    $jobs = Job::alljobs();
+    //$jobs= $jobs;
+    
     $myjob = Arr::first($jobs, function ($job) use ($id) {
         return $job['id'] == $id;
     });
@@ -64,6 +48,6 @@ Route::get('jobs/{id}', function($id) use($jobs) {
     // fn($job) => $job['id'] == $id alta varianta ca sa ai acess la variabila $id
     if ($myjob) {
         return view('job', ['myjob' => $myjob]);
-    }   else {return "Jobul nu exista";};
+    }   else {abort(404);};
     
 });
