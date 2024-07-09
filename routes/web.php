@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
 
+
+$jobs= [
+    ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
+    ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
+    ['id'=>3,'title'=>'Designer','salary'=>'40k']
+];
+
 Route::get('/', function () {
     return view('home', [
         'greetings'=> 'Bine ati venit pe pagina de Home',
@@ -24,26 +31,23 @@ Route::get('contact', function() {
         'url' => 'https://laravel.com',]);
 });
 
-Route::get('jobs', function() {
+Route::get('jobs', function() use($jobs) {
     return view('jobs', 
     [
     'pagetitle'=> 'Laravel Jobs', 
-    'jobs'=> [
-    ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
-    ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
-    ['id'=>3,'title'=>'Designer','salary'=>'40k']
-    ]
+    'jobs'=> $jobs
     ]);
 });
 
-Route::get('jobs/{id}', function($id) {
+Route::get('jobs/{id}', function($id) use($jobs) {
    
 
-    $jobs= [
+    $jobs= $jobs;
+    /*[
         ['id'=>1,'title'=>'Developer','salary'=>'50k'], 
         ['id'=>2, 'title'=>'Manager','salary'=>'90k'], 
         ['id'=>3,'title'=>'Designer','salary'=>'40k']
-    ];
+    ];*/
     //$job= $jobs[$id-1];
     //return view('job', [$myjob]
    /* [
